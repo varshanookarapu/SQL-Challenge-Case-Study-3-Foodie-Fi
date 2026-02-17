@@ -142,7 +142,21 @@ FROM subscriptions
 ## SQL Code
 
 ```sql
+
+
+WITH cte AS 
+(
+SELECT customer_id, plan_id,start_date,
+LAG(plan_id) OVER(PARTITION BY customer_id ORDER BY start_date) as previous_plan_id 
+FROM subscriptions
+ORDER BY customer_id,plan_id
+)
+SELECT COUNT(customer_id) as count_of_customers_churned  FROM cte 
+WHERE  plan_id IN (0,4) AND  previous_plan_id = 0
+
 ```
+<img width="313" height="147" alt="image" src="https://github.com/user-attachments/assets/c61c1740-4360-4c73-8c9a-7f46624d5e8d" />
+<img width="1596" height="833" alt="image" src="https://github.com/user-attachments/assets/3fd36d0b-59fe-4f3c-8c03-d42aa688eff7" />
 
 ---
 
