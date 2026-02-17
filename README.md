@@ -43,5 +43,20 @@ ORDER BY customer_id,plan_id
 | 19          | 3       | pro annual    | 2020-08-29 | 199.00 |
 
 ---
-Explanation : 
+**Explanation : **
 
+**Customer ID 1:** Initially started with a 7-day free trial and downgraded to Basic Monthly after the free trial.
+
+**Customer ID 2:** Initially started with a 7-day free trial and upgraded to the Pro Annual plan after the trial period.
+
+**Customer ID 11:** Initially started with a 7-day free trial and canceled the plan after the 7-day trial.
+
+**Customer ID 13:** Initially started with a 7-day free trial, then downgraded to the Basic Monthly plan for a week, then upgraded to Pro Monthly.
+
+**Customer ID 15:** Initially started with a 7-day free trial, and the plan automatically upgraded to Pro Monthly as the customer did not cancel, downgrade, or upgrade; five days later, the customer canceled the subscription.
+
+**Customer ID 16:** Initially started with a 7-day free trial, then downgraded to the Basic Monthly plan, stayed on the same plan for 4 months, then upgraded to the Pro Annual plan.
+
+**Customer ID 18:** Initially started with a 7-day free trial, and the plan automatically upgraded to Pro Monthly as the customer did not cancel, downgrade, or upgrade.
+
+**Customer ID 19:** Initially started with a 7-day free trial, and the plan automatically upgraded to Pro Monthly as the customer did not cancel, downgrade, or upgrade, stayed on the same plan for 2 months before upgrading to the Pro Annual plan.
