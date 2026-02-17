@@ -142,7 +142,8 @@ FROM subscriptions
 ## SQL Code
 
 ```sql
-
+--To tackle this case, I used the LAG window function to check the previous row against the current row. Specifically, I examined whether plan_id = 4 had an immediately preceding row with plan_id = 0. That is how I 
+--identified and counted the customers who churned straight after the initial free trial.
 
 WITH cte AS 
 (
