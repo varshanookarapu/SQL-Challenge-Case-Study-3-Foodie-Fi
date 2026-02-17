@@ -163,6 +163,27 @@ FROM subscriptions
 
 **Question 8 :** How many customers have upgraded to an annual plan in 2020?
 
+---
+
+## SQL Code
+
+```sql
+SELECT COUNT(customer_id) as customers_upgraded_to_annual_plan FROM 
+
+(
+SELECT  customer_id,plan_id,start_date FROM subscriptions 
+WHERE plan_id = 3 AND  EXTRACT(YEAR FROM start_date )=2020
+ORDER BY customer_id
+)  s
+```
+
+<img width="404" height="151" alt="image" src="https://github.com/user-attachments/assets/45c29cce-a84a-4739-a509-71e79a397139" />
+
+---
+
+
+
+
 **Question 9 :** How many days on average does it take for a customer to an annual plan from the day they join Foodie-Fi?
 
 **Question 10 :** Can you further breakdown this average value into 30 day periods (i.e. 0-30 days, 31-60 days etc)
