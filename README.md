@@ -43,7 +43,7 @@ ORDER BY customer_id,plan_id
 | 19          | 3       | pro annual    | 2020-08-29 | 199.00 |
 
 ---
-### Explanation : 
+### Explanation 
 
 **Customer ID 1:** Initially started with a 7-day free trial and downgraded to Basic Monthly after the free trial.
 
