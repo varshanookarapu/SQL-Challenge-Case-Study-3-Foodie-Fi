@@ -64,7 +64,6 @@ ORDER BY customer_id,plan_id
 
 ---
 
-
 ## B. Data Analysis Questions 
 
 
