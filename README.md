@@ -69,15 +69,95 @@ ORDER BY customer_id,plan_id
 
 **Question 1:** How many customers has Foodie-Fi ever had?
 
+---
+
+## SQL Code
+
+```sql
+SELECT COUNT(DISTINCT customer_id) as total_customers_from_foodie_fi FROM subscriptions;
+```
+<img width="586" height="146" alt="image" src="https://github.com/user-attachments/assets/076ab413-7d85-4df3-9c4e-003ed27a346f" />
+
+---
+
+
 **Question 2 :** What is the monthly distribution of trial plan start_date values for our dataset - use the start of the month as the group by value
+
+---
+
+## SQL Code
+
+```sql
+SELECT DATE_TRUNC('month' , start_date) :: DATE as month_start_date  , COUNT(customer_id)  as  customer_count_monthly_distribution 
+FROM subscriptions                                                                  
+WHERE plan_id = 0                                                                   
+GROUP BY month_start_date 
+ORDER BY month_start_date
+```
+
+<img width="1089" height="700" alt="image" src="https://github.com/user-attachments/assets/eb873a76-120b-4f5a-bfbe-7d5d53a04a23" />
+
+---
+
 
 **Question 3 :** What plan start_date values occur after the year 2020 for our dataset? Show the breakdown by count of events for each plan_name
 
+---
+
+## SQL Code
+
+```sql
+SELECT plan_name, COUNT(s.plan_id) as plan_count FROM subscriptions s 
+LEFT JOIN plans p ON s.plan_id = p.plan_id
+WHERE  EXTRACT (YEAR FROM start_date ) != 2020 
+GROUP BY plan_name
+ORDER BY plan_count ASC
+```
+<img width="1268" height="336" alt="image" src="https://github.com/user-attachments/assets/a1e9813b-d5da-4d4e-9c49-cdc462fc60aa" />
+
+---
+
 **Question 4 :** What is the customer count and percentage of customers who have churned rounded to 1 decimal place?
+
+---
+
+## SQL Code
+
+```sql
+SELECT 
+COUNT(DISTINCT customer_id)  as total_customer_count , 
+COUNT(DISTINCT CASE WHEN plan_id = 4 THEN customer_id END)  as customer_churn_count ,
+ROUND ((COUNT(DISTINCT CASE WHEN plan_id = 4 THEN customer_id END) :: DECIMAL  / COUNT(DISTINCT customer_id)) *100 , 1 )  as churn_percentage
+FROM subscriptions
+```
+
+<img width="1502" height="188" alt="image" src="https://github.com/user-attachments/assets/8171d4e9-8032-43f3-8fb0-3f9c1285d45f" />
+
+---
 
 **Question 5 :** How many customers have churned straight after their initial free trial - what percentage is this rounded to the nearest whole number?
 
+---
+
+## SQL Code
+
+```sql
+```
+
+---
+
+
+
 **Question 6 :** What is the number and percentage of customer plans after their initial free trial?
+
+---
+
+## SQL Code
+
+```sql
+```
+
+---
 
 **Question 7 :** What is the customer count and percentage breakdown of all 5 plan_name values at 2020-12-31?
 
