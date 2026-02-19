@@ -174,7 +174,38 @@ WHERE  plan_id =4 AND  previous_plan_id = 0
 ## SQL Code
 
 ```sql
+WITH customer_plans AS
+(
+SELECT  customer_id,s.plan_id,plan_name,
+LAG(s.plan_id) OVER(partition by customer_id  ORDER BY s.plan_id) AS previous_plan,
+LEAD(s.plan_id) OVER(partition by customer_id  ORDER BY s.plan_id) AS next_plan
+FROM subscriptions s 
+LEFT JOIN plans p ON s.plan_id = p.plan_id
+ORDER BY customer_id
+)
+
+-- SELECT COUNT(plan_id) as customer_plan_count_after_initial_free_trail
+-- FROM customer_plans 
+-- WHERE plan_id != 0
+
+-- They asked for the count of post trail plans and how they are segregated. The total rows in subscriptions table is 2065 and  every customer has initial trail plan which amounts to 1000 so the remaining are the post trail plans which is 1065 
+
+SELECT plan_id,plan_name, COUNT(plan_id) as customer_plan_count_after_initial_free_trail ,
+
+ROUND ((COUNT(plan_id) :: DECIMAL / (SELECT COUNT(plan_id) as customer_plan_count_after_initial_free_trail FROM customer_plans WHERE plan_id != 0  ) ) * 100 ,2 ) AS plan_percentage
+
+FROM customer_plans 
+WHERE previous_plan IS NOT NULL  
+GROUP BY plan_name,plan_id
+ORDER BY plan_id
+
 ```
+Customer Plans CTE
+<img width="1889" height="821" alt="image" src="https://github.com/user-attachments/assets/dacbf638-81f7-48bc-a60f-f396a1bd6812" />
+
+<img width="466" height="198" alt="image" src="https://github.com/user-attachments/assets/1cf7cb5a-e440-4659-be4a-ea9e388c69cf" />
+
+<img width="1523" height="299" alt="image" src="https://github.com/user-attachments/assets/e8849d13-5bfe-4444-ab07-84e36f8f4d74" />
 
 ---
 
