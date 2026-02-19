@@ -229,11 +229,14 @@ WHERE start_date <= '2020-12-31'
 -- in the CTE we used row number window function to check for the latest date before Dec 31  , 2020 for when the subscription is active
 --SELECT * FROM customer_plans ORDER BY customer_id
 
-SELECT plan_id,plan_name, COUNT(customer_id) FROM customer_plans
+SELECT plan_id,plan_name, COUNT(customer_id) ,
+ROUND((COUNT(customer_id) :: DECIMAL / (SELECT COUNT(DISTINCT customer_id) FROM subscriptions ) ) * 100 , 2)  AS percentage_breakdown
+FROM customer_plans
 WHERE row_number =1 
 GROUP BY plan_id,plan_name 
 ORDER BY plan_id
 ```
+<img width="1664" height="366" alt="image" src="https://github.com/user-attachments/assets/a6e3768f-adde-4979-b424-33df57044a79" />
 
 ---
 
