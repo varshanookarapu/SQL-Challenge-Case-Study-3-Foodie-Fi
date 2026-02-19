@@ -211,6 +211,34 @@ Customer Plans CTE
 
 **Question 7 :** What is the customer count and percentage breakdown of all 5 plan_name values at 2020-12-31?
 
+---
+
+## SQL Code
+
+```sql
+WITH customer_plans AS
+(
+SELECT  customer_id,s.plan_id,plan_name,start_date,
+ROW_NUMBER() OVER (partition by customer_id ORDER BY start_date DESC ) as row_number
+FROM subscriptions s 
+LEFT JOIN plans p ON s.plan_id = p.plan_id
+WHERE start_date <= '2020-12-31'
+
+)
+
+-- in the CTE we used row number window function to check for the latest date before Dec 31  , 2020 for when the subscription is active
+--SELECT * FROM customer_plans ORDER BY customer_id
+
+SELECT plan_id,plan_name, COUNT(customer_id) FROM customer_plans
+WHERE row_number =1 
+GROUP BY plan_id,plan_name 
+ORDER BY plan_id
+```
+
+---
+
+
+
 **Question 8 :** How many customers have upgraded to an annual plan in 2020?
 
 ---
