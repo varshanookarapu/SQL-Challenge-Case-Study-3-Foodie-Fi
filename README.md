@@ -266,6 +266,50 @@ ORDER BY customer_id
 
 
 **Question 9 :** How many days on average does it take for a customer to an annual plan from the day they join Foodie-Fi?
+---
+
+## SQL Code
+
+```sql
+--- The idea was to create two ctes one with trail plan start date and the other with annual plan start date , join those two ctes , do the date difference and then calculate the average days 
+WITH trial_cte as 
+(
+SELECT customer_id, s.plan_id,plan_name, start_date as trial_start_date
+  FROM 
+subscriptions s LEFT JOIN plans p ON
+s.plan_id = p.plan_id
+WHERE s.plan_id = 0
+ORDER BY customer_id , plan_id
+),
+
+annual_cte as 
+(
+SELECT customer_id, s.plan_id,plan_name, start_date as annual_plan_start_date
+ FROM 
+subscriptions s LEFT JOIN plans p ON
+s.plan_id = p.plan_id
+WHERE s.plan_id = 3
+ORDER BY customer_id , plan_id
+),
+
+joined_cte AS
+(
+SELECT tc.customer_id, trial_start_date,annual_plan_start_date,
+(annual_plan_start_date - trial_start_date ) AS days_taken_to_join_annual_plan
+FROM trial_cte tc
+INNER JOIN annual_cte ac ON
+tc.customer_id = ac.customer_id
+)
+
+
+SELECT ROUND(AVG(days_taken_to_join_annual_plan)) as AVG_Days_taken_to_Join_Annual_plan FROM joined_cte
+
+```
+<img width="493" height="146" alt="image" src="https://github.com/user-attachments/assets/3186ae29-d13a-4c9f-a5a9-45552d7dd670" />
+
+
+---
+
 
 **Question 10 :** Can you further breakdown this average value into 30 day periods (i.e. 0-30 days, 31-60 days etc)
 
