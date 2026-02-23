@@ -305,6 +305,28 @@ tc.customer_id = ac.customer_id
 SELECT ROUND(AVG(days_taken_to_join_annual_plan)) as AVG_Days_taken_to_Join_Annual_plan FROM joined_cte
 
 ```
+---
+```sql
+-- MIN - Logic - cleaner 
+WITH CTE AS
+(
+SELECT customer_id, 
+MIN(CASE WHEN plan_id=0 THEN start_date END ) as trial_date,
+MIN (CASE WHEN plan_id=3 THEN start_date END  ) as annual_date
+FROM subscriptions
+GROUP BY customer_id
+ORDER BY customer_id
+)
+
+
+SELECT ROUND(AVG(annual_date - trial_date))
+FROM cte
+```
+
+
+
+
+
 <img width="493" height="146" alt="image" src="https://github.com/user-attachments/assets/3186ae29-d13a-4c9f-a5a9-45552d7dd670" />
 
 
