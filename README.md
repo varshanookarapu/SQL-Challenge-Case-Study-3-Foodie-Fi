@@ -338,4 +338,25 @@ FROM cte
 
 **Question 11 :** How many customers downgraded from a pro monthly to a basic monthly plan in 2020?
 
+---
+
+## SQL Code
+
+```sql
+WITH CTE as 
+(
+SELECT customer_id, s.plan_id,plan_name ,
+LEAD(s.plan_id) OVER(partition by customer_id  ORDER BY s.plan_id ASC) as next_plan 
+FROM subscriptions s LEFT JOIN plans p
+ON s.plan_id = p.plan_id
+WHERE EXTRACT(YEAR FROM start_date) = 2020
+ORDER BY customer_id,s.plan_id
+)
+
+select COUNT(customer_id) as customers_downgraded FROM CTE  WHERE plan_id = 2 AND next_plan = 1 
+
+```
+
+<img width="404" height="189" alt="image" src="https://github.com/user-attachments/assets/48f9136d-9802-4f3f-9b4f-9aba7a197700" />
+
 
