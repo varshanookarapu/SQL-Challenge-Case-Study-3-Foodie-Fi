@@ -310,8 +310,9 @@ SELECT ROUND(AVG(days_taken_to_join_annual_plan)) as AVG_Days_taken_to_Join_Annu
 -- MIN - Logic - cleaner 
 WITH CTE AS
 (
-SELECT customer_id, 
-MIN(CASE WHEN plan_id=0 THEN start_date END ) as trial_date,
+SELECT customer_id,
+-- here we are picking the earliest trial date and annual plan date hence we use min 
+MIN(CASE WHEN plan_id=0 THEN start_date END ) as trial_date,  
 MIN (CASE WHEN plan_id=3 THEN start_date END  ) as annual_date
 FROM subscriptions
 GROUP BY customer_id
