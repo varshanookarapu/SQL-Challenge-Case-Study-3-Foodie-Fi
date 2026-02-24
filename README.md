@@ -336,6 +336,50 @@ FROM cte
 
 **Question 10 :** Can you further breakdown this average value into 30 day periods (i.e. 0-30 days, 31-60 days etc)
 
+---
+
+## SQL Code
+
+```sql
+WITH cte AS 
+( SELECT customer_id, 
+ MIN(CASE WHEN plan_id = 0 THEN start_date END ) AS trial_date,
+ MIN(CASE WHEN plan_id = 3 THEN start_date END ) AS annual_date 
+ FROM subscriptions GROUP BY customer_id 
+ ORDER BY customer_id 
+),
+
+
+days_taken  AS 
+(
+SELECT *, (annual_date - trial_date ) AS days_taken_to_upgrade FROM  cte
+WHERE trial_date IS NOT NULL AND annual_date IS NOT NULL
+),
+
+
+-- Here we are dividing the days taken to upgrade to different buckets  for instance 0- 30 days bucket is 0 
+-- 31-60 days is bucket 1 etc  , this is acheiveved by diving the days taken to uprade , divide it by 30 then floor ( rounds down to nearest whole number )  
+
+buckets_cte AS 
+(
+
+  SELECT customer_id, days_taken_to_upgrade, floor(days_taken_to_upgrade/30) as bucket 
+  FROM days_taken
+
+)
+
+
+SELECT    (bucket*30 + 1   || '-' || bucket*30 + 30) as period ,bucket , COUNT(customer_id) as customers_count , ROUND(AVG(days_taken_to_upgrade)) as avg_days_to_upgrade
+FROM
+buckets_cte
+GROUP BY  bucket
+ORDER BY bucket 
+  
+```
+<img width="1646" height="732" alt="image" src="https://github.com/user-attachments/assets/58a9e91b-77b0-4bbb-85fd-de320c00664e" />
+
+---
+
 **Question 11 :** How many customers downgraded from a pro monthly to a basic monthly plan in 2020?
 
 ---
