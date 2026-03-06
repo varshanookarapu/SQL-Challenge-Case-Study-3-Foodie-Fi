@@ -189,7 +189,7 @@ SELECT * FROM monthly_payments WHERE customer_id =8 ORDER BY customer_id, paymen
 <img width="1703" height="390" alt="image" src="https://github.com/user-attachments/assets/ca764f48-5fc4-4c07-b688-2ad22fffd056" />
 
 ---
-In this CTE we are going to be doing the price adjustment when we are upgrading from basic monthly to pro monthly i.e going from plan 1 to plan 2
+In this CTE we are going to be doing the price adjustment when we are upgrading from basic monthly to pro monthly or pro yearly  i.e going from plan 1 to plan 2 or plan 1 to plan 3
 
 ```sql
 basictopromonthly AS 
