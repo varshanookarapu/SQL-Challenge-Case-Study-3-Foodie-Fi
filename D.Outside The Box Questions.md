@@ -12,9 +12,21 @@ growth_rate = New Customers Count - Old Customers Count / Old Customers Count * 
 
 **Question 2:** What key metrics would you recommend Foodie-Fi management to track over time to assess performance of their overall business?
 
+```
+```
+
 **Question 3:** What are some key customer journeys or experiences that you would analyse further to improve customer retention?
 
+```
+I would analyze what factors lead customers to upgrade from the trial to basic, monthly, or pro plans.
+I would also investigate why some customers churn immediately after the trial period .
+Additionally, I would look into whether pricing played a role in customers’ decisions to churn.
+```
 **Question 4:** If the Foodie-Fi team were to create an exit survey shown to customers who wish to cancel their subscription, what questions would you include in the survey?
 
-**Question 5:** What business levers could the Foodie-Fi team use to reduce the customer churn rate? How would you validate the effectiveness of your ideas?
+```
+```
 
+**Question 5:** What business levers could the Foodie-Fi team use to reduce the customer churn rate? How would you validate the effectiveness of your ideas?
+```
+```
