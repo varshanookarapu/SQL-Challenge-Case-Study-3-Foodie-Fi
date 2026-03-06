@@ -212,5 +212,52 @@ ORDER BY customer_id, payment_date
 ```
 <img width="1696" height="187" alt="image" src="https://github.com/user-attachments/assets/a01351b1-9b8d-45e6-b1e3-0b622b4a5d51" />
 <img width="1671" height="172" alt="image" src="https://github.com/user-attachments/assets/9980fa2c-705b-443e-8ef7-0f499cebc65a" />
+---
+Now i am going to address the upgrades from pro monthly to pro annual are paid at the end of the current billing period and also starts at the end of the month period
 
+```sql
+protoannual AS
+(
+SELECT 
+  customer_id,
+  plan_id,
+  plan_name,
+  start_date as payment_date, 
+  price as amount, 
+  period_end_date 
+FROM base2 
+WHERE plan_id = 3 and previous_plan_id = 2   
+)
+
+SELECT * FROM protoannual WHERE customer_id =19
+ORDER BY customer_id, payment_date
+```
+<img width="1626" height="148" alt="image" src="https://github.com/user-attachments/assets/d404b795-cba6-4b4b-93a6-69f863aaa607" />
+
+--- 
+Finally we now combine all the CTES , add the payment_order column and then the final conditon to include only the dates till Dec 31 2020 
+
+```sql
+all_payments AS 
+(
+SELECT * FROM monthly_payments 
+UNION ALL
+SELECT * FROM basictopromonthly
+UNION ALL
+SELECT * from protoannual
+)
+
+SELECT
+customer_id,
+plan_id,
+plan_name,
+payment_date,
+amount,
+period_end_date,
+ROW_NUMBER() OVER(PARTITION BY customer_id ORDER BY payment_date) AS payment_order
+FROM all_payments 
+WHERE payment_date <= DATE '2020-12-31'
+ORDER BY customer_id,payment_date
+
+```
 
