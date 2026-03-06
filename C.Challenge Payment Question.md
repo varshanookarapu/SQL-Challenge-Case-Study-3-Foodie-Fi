@@ -127,6 +127,22 @@ SELECT * FROM base ORDER BY customer_id, start_date
 
 <img width="1894" height="830" alt="image" src="https://github.com/user-attachments/assets/8d66017a-18c3-4528-bf01-5ac7740ffdc7" />
 
+---
+Now i want to calculate period end date  so basically what we are going to do here is to check for the next plan date if it is not null then we take the next plan date then subtract 1 day from it which gives the current plan's period end date  before the next plan starts
+
+``` sql
+base2 AS (
+  
+SELECT *, CASE WHEN next_plan_date  IS NOT NULL THEN (next_plan_date - INTERVAL '1 DAY') :: DATE 
+  ELSE DATE '2020-12-31' END 
+  AS 
+ period_end_date 
+FROM base 
+)
+SELECT * FROM base2 ORDER BY customer_id, start_date
+```
+
+<img width="1894" height="824" alt="image" src="https://github.com/user-attachments/assets/be6d8e45-92e3-4341-9f57-f655d1bdaece" />
 
 
 
