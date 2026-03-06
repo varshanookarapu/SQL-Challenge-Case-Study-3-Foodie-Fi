@@ -25,6 +25,10 @@ Additionally, I would look into whether pricing played a role in customers’ de
 **Question 4:** If the Foodie-Fi team were to create an exit survey shown to customers who wish to cancel their subscription, what questions would you include in the survey?
 
 ```
+Reason for Cancellation
+Pricing is not satisfactiory
+How long did you use Foodie - Fi for
+Is the content satisfactory 
 ```
 
 **Question 5:** What business levers could the Foodie-Fi team use to reduce the customer churn rate? How would you validate the effectiveness of your ideas?
