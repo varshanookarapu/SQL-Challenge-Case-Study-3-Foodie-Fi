@@ -5,6 +5,11 @@ there are no right or wrong answers, but answers that make sense from both a tec
 
 **Question 1:** How would you calculate the rate of growth for Foodie-Fi?
 
+```
+I would be comparing the total customers for the current year , and the next year and then check the percentage of growth
+growth_rate = New Customers Count - Old Customers Count / Old Customers Count * 100
+```
+
 **Question 2:** What key metrics would you recommend Foodie-Fi management to track over time to assess performance of their overall business?
 
 **Question 3:** What are some key customer journeys or experiences that you would analyse further to improve customer retention?
