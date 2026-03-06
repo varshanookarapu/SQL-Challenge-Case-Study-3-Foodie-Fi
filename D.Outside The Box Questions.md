@@ -13,6 +13,11 @@ growth_rate = New Customers Count - Old Customers Count / Old Customers Count * 
 **Question 2:** What key metrics would you recommend Foodie-Fi management to track over time to assess performance of their overall business?
 
 ```
+Growth Rate
+Churn Rate
+Revenue Generated over the years
+Customer Engagement
+
 ```
 
 **Question 3:** What are some key customer journeys or experiences that you would analyse further to improve customer retention?
