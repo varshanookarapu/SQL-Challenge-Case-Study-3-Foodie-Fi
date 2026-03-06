@@ -211,5 +211,6 @@ ORDER BY customer_id, payment_date
 -- Notice in the previous cte when we missed a row  we are now resoliving that scenario with this CTE , where we did the price adjustment.
 ```
 <img width="1696" height="187" alt="image" src="https://github.com/user-attachments/assets/a01351b1-9b8d-45e6-b1e3-0b622b4a5d51" />
+<img width="1671" height="172" alt="image" src="https://github.com/user-attachments/assets/9980fa2c-705b-443e-8ef7-0f499cebc65a" />
 
 
