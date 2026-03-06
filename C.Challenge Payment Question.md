@@ -260,4 +260,17 @@ WHERE payment_date <= DATE '2020-12-31'
 ORDER BY customer_id,payment_date
 
 ```
+---
+Few output screenshots for refernce 
 
+Plan id 1 to Plan id 2 
+<img width="1893" height="500" alt="image" src="https://github.com/user-attachments/assets/7fd4ea6c-c8d9-4346-a26f-883a061107a7" />
+
+Plan id 1 to Plan id 3
+<img width="1903" height="366" alt="image" src="https://github.com/user-attachments/assets/e8003cf3-ac5b-44c0-acd0-da6cdfa0e96e" />
+
+Plan id 2 to Plan id 3
+<img width="1689" height="246" alt="image" src="https://github.com/user-attachments/assets/ea2fc9a7-24a6-4bc8-99e9-8ef77d77a1fa" />
+
+Churn case 
+<img width="1686" height="224" alt="image" src="https://github.com/user-attachments/assets/3dd079d8-0fc4-459e-af57-4ecccfcdaa24" />
