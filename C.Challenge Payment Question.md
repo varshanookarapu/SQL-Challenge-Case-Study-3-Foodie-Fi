@@ -101,7 +101,7 @@ ORDER BY customer_id,payment_date
 ```
 
 ---
-To address this challenge, I’m going to create three CTEs then i will combile all three to generate the payments table. In first step I am creating a base table, which contains all the information about the next plan, including the next plan dates, as well as the previous plans and their dates.
+To address this challenge, I’m going to create three CTEs then i will combile all three to generate the payments table. In first step I am creating a base table, which contains all the information about the next plan, including the next plan dates, as well as the previous plans and their dates and previous price details.
 
 
 ```sql
