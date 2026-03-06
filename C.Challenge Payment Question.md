@@ -99,3 +99,36 @@ ORDER BY customer_id,payment_date
 
 
 ```
+
+---
+To address this challenge, I’m going to create three CTEs then i will combile all three to generate the payments table. In first step I am creating a base table, which contains all the information about the next plan, including the next plan dates, as well as the previous plans and their dates.
+
+
+```sql
+WITH base AS 
+(
+SELECT customer_id,
+s.plan_id,
+plan_name,
+LAG(s.plan_id) OVER(PARTITION BY customer_id ORDER BY start_date ASC) as previous_plan_id,
+LEAD(s.plan_id) OVER(PARTITION BY customer_id ORDER BY start_date ASC) as next_plan_id,
+start_date,
+LAG(start_date) OVER(PARTITION BY customer_id ORDER BY start_date ASC) as previous_plan_date,  
+LEAD(start_date) OVER(PARTITION BY customer_id ORDER BY start_date ASC) as next_plan_date,  
+price,
+LAG(price) OVER(PARTITION BY customer_id ORDER BY start_date ASC) as previous_price   
+FROM subscriptions s LEFT JOIN plans p on
+s.plan_id = p.plan_id
+  
+)
+
+SELECT * FROM base ORDER BY customer_id, start_date
+```
+
+<img width="1894" height="830" alt="image" src="https://github.com/user-attachments/assets/8d66017a-18c3-4528-bf01-5ac7740ffdc7" />
+
+
+
+
+
+
