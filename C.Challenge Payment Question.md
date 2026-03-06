@@ -188,5 +188,27 @@ SELECT * FROM monthly_payments WHERE customer_id =8 ORDER BY customer_id, paymen
 ```
 <img width="1703" height="390" alt="image" src="https://github.com/user-attachments/assets/ca764f48-5fc4-4c07-b688-2ad22fffd056" />
 
+---
+In this CTE we are going to be doing the price adjustment when we are upgrading from basic monthly to pro monthly i.e going from plan 1 to plan 2
+
+```sql
+basictopromonthly AS 
+(
+SELECT customer_id,
+plan_id,
+plan_name,
+start_date as payment_date,
+(price-previous_price) AS amount,
+period_end_date
+FROM  base2 
+WHERE plan_id = 2 AND previous_plan_id = 1 
+  
+)  
+SELECT * FROM basictopromonthly WHERE customer_id =8 
+ORDER BY customer_id, payment_date
+
+-- Notice in the previous cte when we missed a row  we are now resoliving that scenario with this CTE , where we did the price adjustment.
+```
+<img width="1696" height="187" alt="image" src="https://github.com/user-attachments/assets/a01351b1-9b8d-45e6-b1e3-0b622b4a5d51" />
 
 
