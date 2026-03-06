@@ -144,7 +144,49 @@ SELECT * FROM base2 ORDER BY customer_id, start_date
 
 <img width="1894" height="824" alt="image" src="https://github.com/user-attachments/assets/be6d8e45-92e3-4341-9f57-f655d1bdaece" />
 
+---
+Now in this CTE we are going to create payment dates for basic monthly and pro monthly plans, which will recursively calculate the next payment date based on the start date and then will end at date on or before Dec 31 2020. 
 
+```sql
+
+WITH RECURSIVE
+monthly_payments AS 
+(
+-- anchor
+  
+SELECT customer_id,
+plan_id,
+plan_name,
+CASE WHEN plan_id =2 AND previous_plan_id = 1 THEN  
+(start_date + INTERVAL '1 Month') :: DATE 
+ELSE start_date 
+END
+AS payment_date,
+price as amount,
+period_end_date
+FROM base2
+WHERE plan_id IN (1,2)  
+  
+UNION ALL
+  
+-- recursive
+SELECT customer_id,
+plan_id,
+plan_name,  
+(payment_date + INTERVAL '1 Month') :: DATE AS payment_date,
+amount,
+period_end_date
+FROM monthly_payments
+WHERE  (payment_date + INTERVAL '1 Month') :: DATE  <= LEAST (period_end_date, DATE '2020-12-31' )
+    
+) 
+
+
+SELECT * FROM monthly_payments WHERE customer_id =8 ORDER BY customer_id, payment_date
+
+-- Notice how in the below example we skipped a payment date for August month , this is because before the end of the basic monthly payment period , the pro monthly period is starting and we need to account for price change which will be addressed in the next cte.
+```
+<img width="1703" height="390" alt="image" src="https://github.com/user-attachments/assets/ca764f48-5fc4-4c07-b688-2ad22fffd056" />
 
 
 
