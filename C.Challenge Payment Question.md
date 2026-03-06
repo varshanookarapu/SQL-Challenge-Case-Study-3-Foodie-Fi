@@ -201,7 +201,8 @@ start_date as payment_date,
 (price-previous_price) AS amount,
 period_end_date
 FROM  base2 
-WHERE plan_id = 2 AND previous_plan_id = 1 
+WHERE (plan_id = 2 AND previous_plan_id = 1) OR  (plan_id = 3 AND previous_plan_id = 1) 
+  
   
 )  
 SELECT * FROM basictopromonthly WHERE customer_id =8 
